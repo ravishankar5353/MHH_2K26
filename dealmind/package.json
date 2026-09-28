@@ -1,0 +1,10 @@
+{
+  "name": "dealmind-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DealMind — Persistent Memory Sales Deal Intelligence Agent",
+  "scripts": {
+    "dev": "node dev.js",
+    "start": "node dev.js"
+  }
+}

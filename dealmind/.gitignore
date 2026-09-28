@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+build/
+dist/
+__pycache__/
+*.pyc
+.env
+.env.local
+.env.production
+.venv/
+env/
+venv/
+*.log
