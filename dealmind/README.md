@@ -8,9 +8,12 @@ DealMind is a persistent memory-powered **Sales Deal Intelligence Agent** built 
 
 ---
 
+## 🌐 Live Production Application
+👉 **[https://frontend-liard-ten-36.vercel.app](https://frontend-liard-ten-36.vercel.app)**
+
 ## 🚀 One-Command Local Development
 
-You only need **ONE URL** to run and explore DealMind:
+You only need **ONE URL** to run and explore DealMind locally:
 👉 **[http://localhost:3000](http://localhost:3000)**
 
 ### Quick Start:

@@ -1,23 +1,28 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.endpoints import router as api_router
+from app.memory.hindsight_service import hindsight_engine
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
 app = FastAPI(
-    title="DealMind Backend",
+    title="DealMind Backend API",
     description="Memory-powered Sales Deal Intelligence Agent Backend powered by Hindsight Memory",
     version="1.0.0"
 )
 
-# Allowed CORS origins
-origins = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    os.getenv("FRONTEND_URL", "http://localhost:3000")
-]
+# Environment-based CORS configuration
+cors_env = os.getenv("CORS_ORIGINS", "")
+if cors_env:
+    origins = [origin.strip() for origin in cors_env.split(",") if origin.strip()]
+else:
+    origins = [
+        "https://frontend-liard-ten-36.vercel.app",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000"
+    ]
 
 app.add_middleware(
     CORSMiddleware,
@@ -41,11 +46,16 @@ async def root():
 @app.get("/health")
 @app.get("/api/health")
 async def health_check():
+    is_live = hindsight_engine.is_live()
     return {
         "status": "ok",
-        "service": "DealMind API"
+        "service": "DealMind API",
+        "environment": os.getenv("ENVIRONMENT", "production"),
+        "hindsight_status": "Connected (Live API)" if is_live else "Active (Hindsight Demo Engine)",
+        "database": "Connected"
     }
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)

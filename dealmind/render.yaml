@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: dealmind-backend
+    env: python
+    region: oregon
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: CORS_ORIGINS
+        value: https://frontend-liard-ten-36.vercel.app,http://localhost:3000,http://127.0.0.1:3000
+      - key: HINDSIGHT_BASE_URL
+        value: https://api.hindsight.ai/v1
+      - key: LLM_MODEL
+        value: gemini-1.5-pro
